@@ -1,0 +1,24 @@
+apply plugin: "java"
+
+[compileJava, compileTestJava].each { task ->
+  task.options.encoding = 'UTF-8'
+}
+
+sourceSets {
+  main {
+    java.srcDirs = ['src']
+    resources.srcDirs = ['assets']
+  }
+}
+
+dependencies {
+  api "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
+  api "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
+  api "com.badlogicgames.gdx:gdx:$gdxVersion"
+
+  if (enableGraalNative == 'true') {
+    implementation "io.github.berstanio:gdx-svmhelper-annotations:$graalHelperVersion"
+  }
+}
+
+eclipse.project.name = appName + '-core'
